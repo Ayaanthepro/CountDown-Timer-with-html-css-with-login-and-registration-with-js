@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title"></title>
+    <style>
+        body {
+            background-image: linear-gradient(#0F3443, #34E89E);
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        #submit {
+            background-color: green;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 25px;
+            margin-top: 20px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        #error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="name"></h1>
+        <input type="datetime-local" name="" id="date-input">
+        <input type="submit" value="Submit" id="submit">
+
+        <p id="error"></p>
+
+    </div>
+
+</body>
+<script>
+// filename as title
+    const title = document.location.pathname.split('/').pop();
+    const fileName = title.split('.')[0];
+    document.getElementById('title').innerText = fileName;
+
+
+    let name = document.getElementById('name');
+    var StoredData = localStorage.getItem('userdata');
+
+
+    const storedCredentials = JSON.parse(localStorage.getItem('userdata'));
+    // check if auth user then open page otherwise not
+    if (!storedCredentials || !storedCredentials.name || !storedCredentials.email || !storedCredentials.password) {
+        window.location.href = './login.html';
+    } else {
+        name.innerText = 'Welcome ' + storedCredentials.name;
+    }
+
+
+    submit.addEventListener('click', function (e) {
+        e.preventDefault()
+        let endDate;
+        let dateInput = document.getElementById('date-input');
+        let input_time = dateInput.value;
+        if (input_time === "" || input_time === undefined) {
+            document.getElementById('error').innerText = "Choose Date And Time";
+        } else {
+            document.getElementById('error').innerText = "";
+            endDate = new Date(input_time).getTime();
+            const endDateobj = new Date(endDate);
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const endMonth = monthNames[endDateobj.getMonth()];
+
+
+            const endDateTimeString = `${endMonth} ${endDateobj.getDate()}, ${endDateobj.getFullYear()}, ${endDateobj.toLocaleTimeString()}`;
+
+
+            let valueStored = localStorage.setItem('countdown', JSON.stringify(endDateTimeString));
+            let valueStoredCheck = JSON.parse(localStorage.getItem('countdown'));
+
+            if (valueStoredCheck) {
+                window.location.href = "./CountDown.html";
+            }
+
+        }
+
+    })
+
+
+
+
+</script>
+
+</html>

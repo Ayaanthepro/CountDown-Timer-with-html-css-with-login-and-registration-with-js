@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title"></title>
+
+    <style>
+        * {
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            background-image: linear-gradient(#556270, #ff6b6b);
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            /* align-items: center; */
+            margin-top: 10%;
+            overflow: hidden;
+        }
+
+
+        .heading {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 40px;
+            text-align: center;
+
+        }
+
+        .time-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event {
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .end-time {
+            font-size: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        h2 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            padding: 20px;
+            color: blue;
+            font-size: 30px;
+            border-radius: 20%;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .container {
+            border: 1px solid black;
+            height: 50%;
+            padding: 30px;
+            border-radius: 5%;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: green;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            color: white;
+            background-color: transparent;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <h1 class="heading">
+            We are coming soon
+        </h1>
+        <h1 class="end-time">
+
+        </h1>
+        <div class="content">
+            <div class="time-content">
+                <h2 class="time" id="days">0</h2>
+                <p class="event">Day</p>
+            </div>
+
+            <div class="time-content">
+                <h2 class="time" id="hours">0</h2>
+                <p class="event">Hours</p>
+            </div>
+
+
+            <div class="time-content">
+                <h2 class="time" id="minutes">0</h2>
+                <p class="event">Minutes</p>
+            </div>
+
+            <div class="time-content">
+                <h2 class="time" id="seconds">0</h2>
+                <p class="event">Seconds</p>
+            </div>
+
+
+        </div>
+
+        <a href="./Dashboard.html" class="btn">Edit Time</a>
+    </div>
+</body>
+
+<script>
+    
+// filename as title
+    const title = document.location.pathname.split('/').pop();
+    const fileName = title.split('.')[0];
+    document.getElementById('title').innerText = fileName;
+
+// check if auth user then open page otherwise not
+   
+const storedCredentials = JSON.parse(localStorage.getItem('userdata'));
+
+    if (!storedCredentials || !storedCredentials.name || !storedCredentials.email || !storedCredentials.password) {
+        window.location.href = './login.html';
+    } else {
+        name.innerText = 'Welcome ' + storedCredentials.name;
+    }
+
+
+const setTime=JSON.parse(localStorage.getItem('countdown'));
+if (!setTime) {
+    window.location.href="./Dashboard.html"
+} else {
+    let endtime;
+    let endDate;
+
+    const endtimeDisplay = document.querySelector('.end-time');
+    endtime = localStorage.getItem('countdown');
+    endtimeDisplay.innerText = endtime;
+
+    const days = document.getElementById('days');
+    const hours = document.getElementById('hours');
+    const minutes = document.getElementById('minutes');
+    const seconds = document.getElementById('seconds');
+
+    function clock() {
+        const end = new Date(endtime);
+        const now = new Date();
+        const diff = (end - now) / 1000;
+
+        if (diff < 0) {
+            days.textContent = 0;
+            hours.textContent = 0;
+            minutes.textContent = 0;
+            seconds.textContent = 0;
+        } else {
+            days.textContent = Math.floor(diff / 3600 / 24);
+            hours.textContent = Math.floor(diff / 3600) % 24;
+            minutes.textContent = Math.floor(diff / 60) % 60;
+            seconds.textContent = Math.floor(diff) % 60;
+        }
+    }
+
+    clock();
+    const interval = setInterval(clock, 1000);
+}
+    
+
+
+
+</script>
+
+</html>
