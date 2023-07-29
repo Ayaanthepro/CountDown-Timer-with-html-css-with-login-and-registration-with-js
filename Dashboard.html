@@ -44,7 +44,25 @@
         #error {
             color: red;
         }
+
+        /* #logout{
+            background-color: black;
+            border: none;
+            color:white;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 8px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #logout:hover{
+            cursor: pointer;
+            background-color: transparent;
+            border: 1px solid black;
+            
+        } */
     </style>
+
+
 </head>
 
 <body>
@@ -54,12 +72,13 @@
         <input type="submit" value="Submit" id="submit">
 
         <p id="error"></p>
+        <!-- <button id="logout">Logout</button> -->
 
     </div>
 
 </body>
 <script>
-// filename as title
+    // filename as title
     const title = document.location.pathname.split('/').pop();
     const fileName = title.split('.')[0];
     document.getElementById('title').innerText = fileName;
@@ -76,6 +95,7 @@
     } else {
         name.innerText = 'Welcome ' + storedCredentials.name;
     }
+
 
 
     submit.addEventListener('click', function (e) {
@@ -103,7 +123,11 @@
                 window.location.href = "./CountDown.html";
             }
 
+
+
         }
+
+
 
     })
 
